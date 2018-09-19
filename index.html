@@ -19,21 +19,25 @@
              </div>
              <div v-for: items in purchases>
                  <div>{{item}}</div>
+<<<<<<< HEAD
              </div>
              <div id="purchase">
                 <input type="text" uname="purchase" name="p">
                 <button id="addpurchase" class="btn btn-primary">add purchase</button>
+=======
+>>>>>>> f9b320c076841b6067778a4427b4d72fcc7d419f
              </div>
          </div>
          <footer></footer>
          
          <script>
-             var vm=new Vue(){
+             var vm=new Vue({
+                 el: '#content',
                  data: {
-                     salary: 0;
-                     purchases:[];
+                     salary: 0,
+                     purchases:[]
                  }
-             }
+             });
          </script>
      </body>
 </html>
