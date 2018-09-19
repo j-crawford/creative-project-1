@@ -15,7 +15,7 @@
              <input type="text" uname="budget" name="b" placeholder="Enter Monthly Salary">
              <button id="budget">submit</button>
              <div v-for: items in purchases>
-                 <p>{{item}}</p>
+                 <div>{{item}}</div>
              </div>
              <input type="text" uname="purchase" name="p">
              <button id="addpurchase">add purchase</button>
@@ -23,12 +23,13 @@
          <footer></footer>
          
          <script>
-             var vm=new Vue(){
+             var vm=new Vue({
+                 el: '#content',
                  data: {
-                     salary: 0;
-                     purchases:[];
+                     salary: 0,
+                     purchases:[]
                  }
-             }
+             });
          </script>
      </body>
 </html>
