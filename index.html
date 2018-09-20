@@ -43,6 +43,7 @@
                              alert("please enter valid numbers only");
                          }else{
                              this.salary=sal;
+                             this.setBalance();
                          }
                      },
                      addPurchase: function(){
@@ -52,11 +53,25 @@
                          }else{
                              alert(pur);
                              this.purchases.push(pur);
+                             this.setBalance();
                          }
                      },
                      isNumber: function(input){
                          var regex=/^(?:[0-9]+\.?[0-9]?[0-9]?)$/;
                          return input!=null && input!="" && input.match(regex);
+                     },
+                     setBalance: function(){
+                         var totpur=this.total;
+                         var budget=this.salary;
+                         var percent=0;
+                         if(totpur>=budget){
+                             percent=100;
+                         }else{
+                             percent=(totpur/budget)*100;
+                         }
+                         percent+="%";
+                         document.getElementById("color1").style.height=percent;
+                         document.getElementById("color1").style.backgroundColor="red";
                      }
                  },
                  computed:{
