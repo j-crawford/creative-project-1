@@ -14,15 +14,17 @@
          <div id="color1"></div>
          <div id="content">
              <div>
-                <input type="text" uname="budget" name="b" placeholder="Enter Monthly Salary">
-                <button id="budget" class="btn btn-primary">submit</button>     
+                <input type="text" id="budgetin" name="b" placeholder="Enter Monthly Salary">
+                <button id="budget" class="btn btn-primary" v-on:click="setSalary()">submit</button>     
              </div>
-             <div v-for: items in purchases>
+             <p>Budget: {{salary}}</p>
+             <div v-for="item in purchases">
                  <div>{{item}}</div>
              </div>
              <div id="purchase">
-                <input type="text" uname="purchase" name="p">
-                <button id="addpurchase" class="btn btn-primary">add purchase</button>
+                <p>Total Purchases: ${{total}}</p>
+                <input type="text" id="purchasein" name="p">
+                <button id="addpurchase" class="btn btn-primary" v-on:click="addPurchase()">add purchase</button>
              </div>
          </div>
          <footer></footer>
@@ -33,8 +35,60 @@
                  data: {
                      salary: 0,
                      purchases:[]
+                 },
+                 methods: {
+                     setSalary: function(){
+                         var sal=document.getElementsByName("b")[0].value;
+                         if(!this.isNumber(sal)){
+                             alert("please enter valid numbers only");
+                         }else{
+                             this.salary=sal;
+                             this.setBalance();
+                         }
+                     },
+                     addPurchase: function(){
+                         var pur=document.getElementsByName("p")[0].value;
+                         if(!this.isNumber(pur)){
+                             alert("please enter valid numbers only");
+                         }else{
+                             alert(pur);
+                             this.purchases.push(pur);
+                             this.setBalance();
+                         }
+                     },
+                     isNumber: function(input){
+                         var regex=/^(?:[0-9]+\.?[0-9]?[0-9]?)$/;
+                         return input!=null && input!="" && input.match(regex);
+                     },
+                     setBalance: function(){
+                         var totpur=this.total;
+                         var budget=this.salary;
+                         var percent=0;
+                         if(totpur>=budget){
+                             percent=100;
+                         }else{
+                             percent=(totpur/budget)*100;
+                         }
+                         percent+="%";
+                         document.getElementById("color1").style.height=percent;
+                         document.getElementById("color1").style.backgroundColor="red";
+                         document.getElementById("color1").style.zIndex=-1;
+                         document.getElementById("color1").style.position="absolute";
+                         document.getElementById("color1").style.bottom="0px";
+                     }
+                 },
+                 computed:{
+                     total: function(){
+                         var tot=0;
+                         var len=this.purchases.length;
+                         for(var i=0;i<len;i++){
+                             tot += Number(this.purchases[i]);
+                         }
+                         return Math.round((tot+0.00001)*100)/100;
+                     }
                  }
              });
          </script>
+         
      </body>
 </html>
