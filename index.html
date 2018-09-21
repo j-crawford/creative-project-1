@@ -4,7 +4,7 @@
           <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
           <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-          <link rel="stylesheet" href="main.css?version=56">
+          <link rel="stylesheet" href="main.css?version=81">
           
           
      </head>
@@ -19,14 +19,15 @@
                 <input type="text" id="budgetin" name="b" placeholder="Enter Monthly Salary">
                 <button id="budget" class="btn btn-primary" v-on:click="setSalary()">submit</button>     
              </div>
-             <p>Budget: {{salary}}</p>
-             <div v-for="item in purchases">
-                 <div>{{item}}</div>
+             <p>Budget: ${{salary}}</p>
+             <div v-for="(item, index) in purchases" :key="index">
+                 <div class="item">${{item}}<button class="inner" v-on:click="removePurchase(index)">remove</button></div>
              </div>
              <div id="purchase">
                 <p>Total Purchases: ${{total}}</p>
                 <input type="text" id="purchasein" name="p">
                 <button id="addpurchase" class="btn btn-primary" v-on:click="addPurchase()">add purchase</button>
+                <button class="btn btn-primary" v-on:click="clearPurchases()">clear purchases</button>
              </div>
          </div>
          <footer></footer>
@@ -57,6 +58,7 @@
                              this.purchases.push(pur);
                              this.setBalance();
                          }
+                         document.getElementsByName("p")[0].value="";
                      },
                      isNumber: function(input){
                          var regex=/^(?:[0-9]+\.?[0-9]?[0-9]?)$/;
@@ -66,7 +68,9 @@
                          var totpur=this.total;
                          var budget=this.salary;
                          var percent=0;
-                         if(totpur>=budget){
+                         if(totpur==0){
+                             percent=0;
+                         }else if(totpur>budget){
                              percent=100;
                          }else{
                              percent=(totpur/budget)*100;
@@ -74,6 +78,17 @@
                          percent+="%";
                          document.getElementById("color1").style.height=percent;
                          
+                     },
+                     clearPurchases: function(){
+                         var len=this.purchases.length;
+                         for(var i=0;i<len;i++){
+                             this.purchases.pop();
+                         }
+                         this.setBalance();
+                     },
+                     removePurchase: function(index){
+                         this.purchases.splice(index,1);
+                         this.setBalance();
                      }
                  },
                  computed:{
