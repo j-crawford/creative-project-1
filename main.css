@@ -5,10 +5,12 @@ body {
 }
 
 header {
-    background: #ffffff;
+    background: #d8d8d8;
     height: 110px;
     margin-top: -20px;
     margin-bottom: 50px;
+    color: white;
+    text-shadow: 5px 5px 20px rgba(0,0,0,0.5);
 }
 
 h1 {
@@ -17,12 +19,14 @@ h1 {
 }
 
 #content {
+    position: relative;
     background: #ffffff;
     width: 255px;
     height: auto;
     min-height: 60vh;
     display: block;
     margin: 0 auto;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
 }
 
 input {
@@ -33,6 +37,7 @@ input {
 .btn {
     width: 100%;
     text-transform: capitalize;
+    border-radius: 0;
 }
 
 #color1 {
@@ -40,4 +45,10 @@ input {
     height: 100%;
     background: #006a00;
     z-index: 1
+}
+
+#purchase {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
